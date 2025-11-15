@@ -11,7 +11,7 @@ export default function MeuPerfil() {
   return (
     <div>
       <section className="container flex flex-col bg-white justify-center p-4 rounded-lg shadow-md m-4 mx-auto">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center flex-wrap gap-4">
           <div className="flex items-center gap-4 sm:ml-16 md:ml-24 lg:ml-32 space-y-5 md:space-y-0 md:flex-row mb-6">
             <div className="rounded-xl w-12 h-12 md:w-16 md:h-16 bg-linear-to-br from-yellow-400 via-amber-500 to-orange-600 shadow-md items-center flex justify-center text-white">
               <Package size={42} />
@@ -23,7 +23,7 @@ export default function MeuPerfil() {
               </span>
             </div>
           </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap sm:mr-16 md:mr-24 lg:mr-32 sm:flex-row-reverse md:flex-row-reverse">
               <div className="relative">
               <input
                 type="search"

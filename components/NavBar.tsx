@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Package,
@@ -29,46 +30,46 @@ export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const departamentos = [
-    { nome: "Geral", icon: Layers },
-    { nome: "Abertura", icon: DoorOpen },
-    { nome: "Assistência 24h", icon: Headphones },
-    { nome: "Cadastro", icon: UserPlus },
-    { nome: "Central", icon: Phone },
-    { nome: "Cobrança", icon: DollarSign },
-    { nome: "Financeiro", icon: Landmark },
-    { nome: "Jurídico", icon: Scale },
-    { nome: "Serviços Gerais", icon: Building2 },
-    { nome: "Regulagem", icon: Wrench },
-    { nome: "Recursos Humanos", icon: Users },
-    { nome: "Sistemas", icon: Monitor },
+    { nome: "Geral", icon: Layers, slug: "", isGeneral: true },
+    { nome: "Abertura", icon: DoorOpen, slug: "abertura" },
+    { nome: "Assistência 24h", icon: Headphones, slug: "assistencia" },
+    { nome: "Cadastro", icon: UserPlus, slug: "cadastro" },
+    { nome: "Central", icon: Phone, slug: "central" },
+    { nome: "Cobrança", icon: DollarSign, slug: "cobranca" },
+    { nome: "Financeiro", icon: Landmark, slug: "financeiro" },
+    { nome: "Jurídico", icon: Scale, slug: "juridico" },
+    { nome: "Serviços Gerais", icon: Building2, slug: "servicos-gerais" },
+    { nome: "Regulagem", icon: Wrench, slug: "regulagem" },
+    { nome: "Recursos Humanos", icon: Users, slug: "rh" },
+    { nome: "Sistemas", icon: Monitor, slug: "sistemas" },
   ];
 
   return (
-    <nav className="container mx-auto w-full mt-6 bg-background text-foreground flex justify-center ">
+    <nav className="container mx-auto w-full mt-6 bg-background text-foreground flex justify-center">
       <div className="w-full max-w-auto bg-white px-6 py-4 rounded-lg shadow-md">
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center gap-8">
-          <a
+          <Link
             href="/"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
           >
             <Home className="w-4 h-4" />
             <span>Home</span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="/produtos"
             className="flex items-center gap-2 hover:text-amber-600 transition-colors px-2"
           >
             <Package className="w-4 h-4" />
             <span>Produtos</span>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/dashboard"
             className="flex items-center gap-2 hover:text-blue-600 transition-colors px-2"
           >
             <LayoutDashboard className="w-4 h-4" />
             <span>Dashboard</span>
-          </a>
+          </Link>
 
           <div
             className="relative"
@@ -103,33 +104,33 @@ export default function NavBar() {
               {departamentos.map((departamento, index) => {
                 const Icon = departamento.icon;
                 return (
-                  <a
+                  <Link
                     key={index}
-                    href="#"
-                    className="flex items-center gap-3 px-4 py-3 text-gray-800  hover:bg-gray-100/70 transition-colors"
+                    href={`/departamentos/${departamento.slug}`}
+                    className="flex items-center gap-3 px-4 py-3 text-gray-800 hover:bg-gray-100/70 transition-colors"
                   >
                     <Icon className="w-5 h-5 shrink-0" />
                     <span>{departamento.nome}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
           </div>
 
-          <a
+          <Link
             href="/meu-perfil"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
           >
             <User className="w-4 h-4" />
             <span>Meu Perfil</span>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/configuracoes"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
           >
             <Settings className="w-4 h-4" />
             <span>Configurações</span>
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu */}
@@ -138,7 +139,7 @@ export default function NavBar() {
             <span className="font-semibold text-md">Menu Coin</span>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 hover:bg-gray-100  rounded-md transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-md transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -151,27 +152,27 @@ export default function NavBar() {
 
           {isMenuOpen && (
             <div className="mt-4 space-y-2">
-              <a
+              <Link
                 href="/"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
                 <Home className="w-5 h-5" />
                 <span>Home</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/produtos"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
                 <Package className="w-5 h-5" />
                 <span>Produtos</span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/dashboard"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
                 <LayoutDashboard className="w-5 h-5" />
                 <span>Dashboard</span>
-              </a>
+              </Link>
 
               <div>
                 <button
@@ -193,34 +194,34 @@ export default function NavBar() {
                     {departamentos.map((departamento, index) => {
                       const Icon = departamento.icon;
                       return (
-                        <a
+                        <Link
                           key={index}
-                          href="#"
+                          href={`/departamentos/${departamento.slug}`}
                           className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 rounded-md transition-colors"
                         >
                           <Icon className="w-4 h-4 shrink-0" />
                           <span>{departamento.nome}</span>
-                        </a>
+                        </Link>
                       );
                     })}
                   </div>
                 )}
               </div>
 
-              <a
+              <Link
                 href="/meu-perfil"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
                 <User className="w-5 h-5" />
                 <span>Meu Perfil</span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/configuracoes"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
                 <Settings className="w-5 h-5" />
                 <span>Configurações</span>
-              </a>
+              </Link>
             </div>
           )}
         </div>

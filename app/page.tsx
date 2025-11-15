@@ -1,6 +1,7 @@
 
 import ComoFunciona from "@/components/Home/ComoFunciona";
 import TopFuncionarios from "@/components/Home/TopFuncionarios";
+import ProdutosDestaque from "@/components/Produtos/ProdutosDestaque";
 import { Copyright } from "lucide-react";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         </div>
         <ComoFunciona />
         <TopFuncionarios />
+        <ProdutosDestaque />
       </section>
     </div>
   );
