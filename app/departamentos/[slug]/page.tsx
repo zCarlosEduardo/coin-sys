@@ -1,6 +1,6 @@
 "use server";
 
-import DepartamentoPageClient from "@/components/departamento/DepartamentoPageClient";
+import DepartamentoPageClient from "@/components/Departamento/DepartamentoPageClient";
 
 interface Props {
   params: Promise<{ slug: string }>;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import { departamentos } from "@/lib/departamentos/departamentos";
 import {
   funcionarios,
@@ -10,8 +10,8 @@ import {
 } from "@/lib/funcionarios/funcionarios";
 
 // Componentes separados
-import { EstatisticasGrid } from "@/components/departamento/EstatisticasGrid";
-import { TabelaFuncionarios } from "@/components/departamento/TabelaFuncionarios";
+import { EstatisticasGrid } from "@/components/Departamento/EstatisticasGrid";
+import { TabelaFuncionarios } from "@/components/Departamento/TabelaFuncionarios";
 
 export default function DepartamentosPage() {
   const [searchTerm ] = useState("");
@@ -157,32 +157,32 @@ export default function DepartamentosPage() {
                       </div>
                       <div className="text-2xl text-gray-400">
                         {departamentoExpandido === departamento.id
-                          ? "▼"
-                          : "▶"}
+                          ? <ChevronDown />
+                          : <ChevronRight />}
                       </div>
                     </div>
 
                     {/* Mini Estatísticas */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <div className="text-center p-3 bg-blue-200/50 rounded-lg">
                         <p className="text-sm text-gray-600">Ativos</p>
                         <p className="text-xl font-bold text-gray-900">
                           {estatisticas.funcionariosAtivos}
                         </p>
                       </div>
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <div className="text-center p-3 bg-blue-200/50 rounded-lg">
                         <p className="text-sm text-gray-600">Pontos</p>
                         <p className="text-xl font-bold text-gray-900">
                           {estatisticas.pontuacaoTotal.toFixed(2)}
                         </p>
                       </div>
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <div className="text-center p-3 bg-blue-200/50 rounded-lg">
                         <p className="text-sm text-gray-600">Coins</p>
                         <p className="text-xl font-bold text-gray-900">
                           {estatisticas.coinsDistribuidas.toLocaleString()}
                         </p>
                       </div>
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <div className="text-center p-3 bg-blue-200/50 rounded-lg">
                         <p className="text-sm text-gray-600">Metas</p>
                         <p className="text-xl font-bold text-gray-900">
                           {estatisticas.metasAlcancadas}

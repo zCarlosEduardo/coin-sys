@@ -1,5 +1,5 @@
 import { Funcionario } from "@/lib/funcionarios/funcionarios";
-import { FuncionarioActions } from "./FuncionarioActions";
+import { FuncionarioActions } from "@/components/Departamento/FuncionarioActions";
 
 interface TabelaFuncionariosProps {
   funcionarios: Funcionario[];
@@ -66,7 +66,7 @@ export function TabelaFuncionarios({
               >
                 <td className="px-6 py-4 text-center">
                   <span
-                    className={`p-1 rounded-full text-xs font-semibold ${
+                    className={`p-1 rounded-full text-xs font-semibold animate-pulse ${
                       funcionario.ativo ? "bg-green-500" : "bg-red-500"
                     }`}
                   >
@@ -130,8 +130,8 @@ export function TabelaFuncionarios({
                 </p>
               </div>
               <span
-                className={`p-1.5 rounded-full ${
-                  funcionario.ativo ? "bg-green-500 " : "bg-red-500"
+                className={`p-1.5 rounded-full animate-pulse ${
+                  funcionario.ativo ? "bg-green-500" : "bg-red-500"
                 }`}
               >
                 {funcionario.ativo ? "" : ""}

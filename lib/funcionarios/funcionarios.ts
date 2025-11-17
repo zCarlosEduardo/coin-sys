@@ -1,6 +1,6 @@
 // lib/funcionarios.ts
 
-export type GrupoUsuario = "funcionario" | "gestor" | "admin";
+export type GrupoUsuario = "Analista" | "gestor" | "admin";
 
 export interface Funcionario {
   id: string;
@@ -24,7 +24,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "123.456.789-00",
     departamentoId: "7",
     departamentoNome: "Financeiro",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 300,
     totalPontos: 1500,
     totalMetas: 12,
@@ -50,7 +50,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "345.678.901-22",
     departamentoId: "8",
     departamentoNome: "Jurídico",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 200,
     totalPontos: 1800,
     totalMetas: 18,
@@ -63,7 +63,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "456.789.012-33",
     departamentoId: "4",
     departamentoNome: "Cadastro",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 200,
     totalPontos: 1100,
     totalMetas: 8,
@@ -76,7 +76,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "567.890.123-44",
     departamentoId: "3",
     departamentoNome: "Assistência 24h",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 150,
     totalPontos: 900,
     totalMetas: 5,
@@ -128,7 +128,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "789.012.345-66",
     departamentoId: "10",
     departamentoNome: "Marketing",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 120,
     totalPontos: 800,
     totalMetas: 6,
@@ -141,7 +141,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "890.123.456-77",
     departamentoId: "5",
     departamentoNome: "Vendas",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 130,
     totalPontos: 950,
     totalMetas: 9,
@@ -153,13 +153,13 @@ export const funcionarios: Funcionario[] = [
     nome: "Felipe Alves",
     cpf: "901.234.567-88",
     departamentoId: "9",
-    departamentoNome: "Suporte Técnico",
-    grupo: "funcionario",
+    departamentoNome: "Sistemas",
+    grupo: "Analista",
     totalCoins: 110,
     totalPontos: 700,
     totalMetas: 4,
     resgatesDisponiveis: 1,
-    ativo: true,
+    ativo: false,
   },
   {
     id: "10",
@@ -167,7 +167,7 @@ export const funcionarios: Funcionario[] = [
     cpf: "012.345.678-99",
     departamentoId: "6",
     departamentoNome: "Logística",
-    grupo: "funcionario",
+    grupo: "Analista",
     totalCoins: 220,
     totalPontos: 1050,
     totalMetas: 11,
@@ -300,6 +300,6 @@ export function getEstatisticasGerais() {
     totalResgates: ativos.reduce((acc, f) => acc + f.resgatesDisponiveis, 0),
     totalAdmins: getFuncionariosByGrupo("admin").length,
     totalGestores: getFuncionariosByGrupo("gestor").length,
-    totalFuncionariosComuns: getFuncionariosByGrupo("funcionario").length,
+    totalFuncionariosComuns: getFuncionariosByGrupo("Analista").length,
   };
 }

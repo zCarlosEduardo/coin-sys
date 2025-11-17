@@ -135,8 +135,7 @@ export default function NavBar() {
 
         {/* Mobile Menu */}
         <div className="lg:hidden">
-          <div className="flex items-center justify-between">
-            <span className="font-semibold text-md">Menu Coin</span>
+          <div className="flex items-center justify-end">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 hover:bg-gray-100 rounded-md transition-colors"

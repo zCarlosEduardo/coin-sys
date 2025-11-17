@@ -17,7 +17,7 @@ export const produtos: Produto[] = [
   {
     id: "1",
     nome: "Mouse Gamer RGB",
-    descricao: "Mouse gamer com iluminação RGB, 7 botões programáveis e DPI ajustável até 16.000",
+    descricao: "",
     valorPontos: 150,
     valorEstimadoReal: 120.00,
     ativo: true,
@@ -116,7 +116,7 @@ export const produtos: Produto[] = [
   {
     id: "12",
     nome: "Tablet 10 polegadas",
-    descricao: "Tablet Android 10 polegadas, 64GB, Wi-Fi, ideal para estudos e entretenimento",
+    descricao: " ",
     valorPontos: 300,
     valorEstimadoReal: 800.00,
     ativo: false,

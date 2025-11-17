@@ -10,10 +10,10 @@ import {
 } from "@/lib/funcionarios/funcionarios";
 
 // Componentes separados
-import { DepartamentoHeader } from "@/components/departamento/DepartamentoHeader";
-import { EstatisticasGrid } from "@/components/departamento/EstatisticasGrid";
-import { FiltrosTabela } from "@/components/departamento/FiltrosTabela";
-import { TabelaFuncionarios } from "@/components/departamento/TabelaFuncionarios";
+import { DepartamentoHeader } from "@/components/Departamento/DepartamentoHeader";
+import { EstatisticasGrid } from "@/components/Departamento/EstatisticasGrid";
+import { FiltrosTabela } from "@/components/Departamento/FiltrosTabela";
+import { TabelaFuncionarios } from "@/components/Departamento/TabelaFuncionarios";
 
 interface Props {
   slug: string;
