@@ -23,7 +23,7 @@ export function FiltrosTabela({
         <h2 className="text-xl md:text-2xl font-bold uppercase">
           Tabela de funcionários
         </h2>
-        <button className="px-4 py-2 bg-linear-to-br from-lime-400 via-green-500 to-green-600 hover:scale-102 hover:shadow-lg text-white transition-all text-sm font-medium rounded-md">
+        <button className="px-4 py-2 bg-linear-to-br from-lime-400 via-green-500 to-green-600 hover:scale-102 hover:shadow-lg text-white transition-all text-sm font-medium rounded-md hidden md:block">
           Exportar em Excel
         </button>
       </div>
@@ -40,7 +40,7 @@ export function FiltrosTabela({
           />
         </div>
 
-        <label className="flex items-center gap-3 cursor-pointer px-4 py-2 rounded-lg bg-gradient-to-r from-rose-50 to-red-50 border border-red-200 hover:border-blue-300 hover:shadow-md transition-all group">
+        <label className="flex items-center gap-3 cursor-pointer px-4 py-2 rounded-lg bg-linear-to-r from-rose-50 to-red-50 border border-red-200 hover:border-blue-300 hover:shadow-md transition-all group">
           <input
             type="checkbox"
             checked={somenteInativos}

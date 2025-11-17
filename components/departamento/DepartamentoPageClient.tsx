@@ -4,14 +4,16 @@ import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import { getDepartamentoBySlug } from "@/lib/departamentos/departamentos";
-import { funcionarios, type Funcionario } from "@/lib/funcionarios/funcionarios";
+import {
+  funcionarios,
+  type Funcionario,
+} from "@/lib/funcionarios/funcionarios";
 
 // Componentes separados
 import { DepartamentoHeader } from "@/components/departamento/DepartamentoHeader";
 import { EstatisticasGrid } from "@/components/departamento/EstatisticasGrid";
 import { FiltrosTabela } from "@/components/departamento/FiltrosTabela";
 import { TabelaFuncionarios } from "@/components/departamento/TabelaFuncionarios";
-import { CardsFuncionariosMobile } from "@/components/departamento/CardsFuncionariosMobile";
 
 interface Props {
   slug: string;
@@ -28,7 +30,7 @@ export default function DepartamentoPageClient({ slug }: Props) {
     console.log("Slug recebido no Client:", slug);
     console.log("Tipo do slug:", typeof slug);
     console.log("Slug é string?", typeof slug === "string");
-    
+
     const dept = getDepartamentoBySlug(slug);
     console.log("Departamento encontrado:", dept);
     console.log("========================");
@@ -69,13 +71,14 @@ export default function DepartamentoPageClient({ slug }: Props) {
   // Early return após todos os hooks
   if (!departamento) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-4 md:p-6 flex items-center justify-center">
+      <div className="min-h-screen p-4 md:p-6 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">
             Departamento não encontrado
           </h1>
           <p className="text-gray-600 mb-4">
-            Slug buscado: <code className="bg-gray-200 px-2 py-1 rounded">{slug}</code>
+            Slug buscado:{" "}
+            <code className="bg-gray-200 px-2 py-1 rounded">{slug}</code>
           </p>
           <Link
             href="/departamentos"
@@ -108,7 +111,7 @@ export default function DepartamentoPageClient({ slug }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-4 md:p-6">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Botão Voltar */}
         <Link
@@ -150,28 +153,6 @@ export default function DepartamentoPageClient({ slug }: Props) {
             onResgatarProduto={handleResgatarProduto}
             onVerHistorico={handleVerHistorico}
           />
-
-          {/* Cards Mobile */}
-          <CardsFuncionariosMobile
-            funcionarios={funcionariosFiltrados}
-            isPending={isPending}
-            onToggleStatus={handleToggleStatus}
-            onAdicionarCoins={handleAdicionarCoins}
-            onResgatarProduto={handleResgatarProduto}
-            onVerHistorico={handleVerHistorico}
-          />
-
-          {/* Mensagem quando não há resultados */}
-          {funcionariosFiltrados.length === 0 && (
-            <div className="p-12 text-center text-gray-500">
-              <p className="text-lg">Nenhum funcionário encontrado</p>
-              {searchTerm && (
-                <p className="text-sm mt-2">
-                  Tente ajustar os filtros de busca
-                </p>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </div>

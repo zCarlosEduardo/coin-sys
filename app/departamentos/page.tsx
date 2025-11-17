@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { departamentos } from "@/lib/departamentos/departamentos";
 import { ArrowRight } from "lucide-react";
+import DepartamentoPageGeral from "@/components/departamento/DepartamentoPageGeral";
 
 export const metadata = {
   title: "Departamentos - Coin System",
@@ -13,20 +14,20 @@ export default function DepartamentosPage() {
   // const departamentosPermitidos = getDepartamentosPermitidos(userRole);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4 uppercase">
+        <header className="text-center my-12">
+          <h1 className="text-4xl sm: font-bold text-gray-800 mb-4 uppercase">
             Departamentos
           </h1>
-          <p className="text-gray-600 text-lg">
-            Selecione um departamento para visualizar detalhes e métricas
+          <p className="text-gray-600 text-lg sm:text-sm">
+            Selecione um departamento ou visualize a visão geral abaixo
           </p>
         </header>
 
         {/* Grid de Departamentos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 container mx-auto p-4">
           {departamentos.map((dept) => {
             const Icon = dept.icon;
             
@@ -48,40 +49,13 @@ export default function DepartamentosPage() {
                 </div>
 
                 {/* Conteúdo */}
-                <div className="p-6">
 
-                  {/* Informações rápidas */}
-                  {dept.funcionarios && (
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
-                      <span>Funcionários:</span>
-                      <span className="font-semibold text-gray-700">
-                        {dept.funcionarios}
-                      </span>
-                    </div>
-                  )}
-
-
-                  {/* Botão ver mais */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
-                      Ver detalhes
-                    </span>
-                    <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
-                  </div>
-                </div>
               </Link>
             );
           })}
         </div>
-
-        {/* Aviso de permissões (futuro) */}
-        <div className="mt-12 p-6 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-800 text-center">
-            💡 <strong>Em breve:</strong> Sistema de permissões por função. 
-            Gestores verão apenas seus departamentos, administradores verão tudo.
-          </p>
-        </div>
       </div>
+      <DepartamentoPageGeral></DepartamentoPageGeral>
     </div>
   );
 }

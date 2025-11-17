@@ -24,7 +24,7 @@ export function FuncionarioActions({
         onClick={() => onToggleStatus(funcionario.id)}
         className={`p-2 rounded-lg transition-all ${
           funcionario.ativo
-            ? "bg-red-100 text-red-600 hover:bg-red-200"
+            ? "bg-red-400/50 text-red-900 hover:bg-red-200"
             : "bg-green-100 text-green-600 hover:bg-green-200"
         }`}
         disabled={isPending}
@@ -39,7 +39,7 @@ export function FuncionarioActions({
 
       <button
         onClick={() => onAdicionarCoins(funcionario)}
-        className="p-2 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-all disabled:opacity-50"
+        className="p-2 bg-green-400/50 text-green-900 rounded-lg hover:bg-green-200 transition-all disabled:opacity-50"
         disabled={isPending || !funcionario.ativo}
         title="Adicionar coins"
       >
@@ -48,7 +48,7 @@ export function FuncionarioActions({
 
       <button
         onClick={() => onResgatarProduto(funcionario)}
-        className="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-all disabled:opacity-50"
+        className="p-2 bg-amber-400/50 text-orange-800 rounded-lg hover:bg-amber-200/80 transition-all disabled:opacity-50"
         disabled={isPending || !funcionario.ativo}
         title="Resgatar produto"
       >
@@ -57,7 +57,7 @@ export function FuncionarioActions({
 
       <button
         onClick={() => onVerHistorico(funcionario)}
-        className="p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-all"
+        className="p-2 bg-blue-400/50 text-blue-800 rounded-lg hover:bg-blue-200 transition-all"
         disabled={isPending}
         title="Ver histórico"
       >

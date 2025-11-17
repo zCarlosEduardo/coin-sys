@@ -45,7 +45,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="container mx-auto w-full mt-6 bg-background text-foreground flex justify-center">
+    <nav className="container mx-auto w-full mt-6 text-foreground flex justify-center">
       <div className="w-full max-w-auto bg-white px-6 py-4 rounded-lg shadow-md">
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center justify-center gap-8">

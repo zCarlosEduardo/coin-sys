@@ -3,7 +3,7 @@ import { Home, Search, ArrowLeft, Frown } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center p-6">
+    <div className="min-h-screen  flex items-center justify-center p-6">
       <div className="w-full max-w-2xl">
         <div className="bg-white rounded-lg shadow-2xl p-8 md:p-12 text-center">
           {/* Ícone animado */}

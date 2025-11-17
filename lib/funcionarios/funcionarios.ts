@@ -85,7 +85,7 @@ export const funcionarios: Funcionario[] = [
   },
   {
     id: "6",
-    nome: "Luiza Fernandes",
+    nome: "Luiza Fernandes almeida borges lima faria asdasdLuiza Fernandes almeida borges lima faria asdasdLuiza Fernandes almeida borges lima faria asdasdLuiza Fernandes almeida borges lima faria asdasd",
     cpf: "678.901.234-55",
     departamentoId: "12",
     departamentoNome: "Sistemas",
@@ -226,7 +226,9 @@ export function getFuncionariosInativos(): Funcionario[] {
 export function getFuncionariosByDepartamento(
   departamentoId: string
 ): Funcionario[] {
-  return funcionarios.filter((func) => func.departamentoId === departamentoId && func.ativo);
+  return funcionarios.filter(
+    (func) => func.departamentoId === departamentoId && func.ativo
+  );
 }
 
 /**

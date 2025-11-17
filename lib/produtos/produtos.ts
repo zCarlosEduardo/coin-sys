@@ -119,8 +119,8 @@ export const produtos: Produto[] = [
     descricao: "Tablet Android 10 polegadas, 64GB, Wi-Fi, ideal para estudos e entretenimento",
     valorPontos: 300,
     valorEstimadoReal: 800.00,
-    ativo: false, // Produto inativo (sem estoque)
-    categoria: "Eletrônicos",
+    ativo: false,
+    categoria: "Ainin",
   },
   {
     id: "13",
