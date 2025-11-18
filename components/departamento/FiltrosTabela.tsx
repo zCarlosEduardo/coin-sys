@@ -1,4 +1,5 @@
 import { Search } from "lucide-react";
+import ExcelReportGenerator from "@/components/ExcelExport";
 
 interface FiltrosTabelaProps {
   searchTerm: string;
@@ -8,6 +9,7 @@ interface FiltrosTabelaProps {
   totalFiltrados: number;
   totalGeral: number;
 }
+
 
 export function FiltrosTabela({
   searchTerm,
@@ -23,9 +25,9 @@ export function FiltrosTabela({
         <h2 className="text-xl md:text-2xl font-bold uppercase">
           Tabela de funcionários
         </h2>
-        <button className="px-4 py-2 bg-linear-to-br from-lime-400 via-green-500 to-green-600 hover:scale-102 hover:shadow-lg text-white transition-all text-sm font-medium rounded-md hidden md:block">
-          Exportar em Excel
-        </button>
+        <div className="flex gap-3">
+         <ExcelReportGenerator funcionarios={[]} departamentoNome={"slug"} />
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">

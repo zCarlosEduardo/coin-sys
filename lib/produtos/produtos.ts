@@ -7,9 +7,8 @@ export interface Produto {
   valorPontos: number;
   valorEstimadoReal: number;
   ativo: boolean;
-  imagem?: string; // URL da imagem (opcional)
-  categoria?: string; // Ex: Eletrônicos, Vale-presente, etc
-  estoque?: number; // Quantidade disponível (opcional)
+  imagem?: string; 
+  categoria?: string; 
 }
 
 // Mock de dados
@@ -254,11 +253,10 @@ export function getEstatisticasProdutos() {
     total: produtos.length,
     ativos: ativos.length,
     inativos: inativos.length,
-    totalEstoque: produtos.reduce((acc, p) => acc + (p.estoque || 0), 0),
     menorValorPontos: Math.min(...ativos.map((p) => p.valorPontos)),
     maiorValorPontos: Math.max(...ativos.map((p) => p.valorPontos)),
     valorTotalEstimado: produtos.reduce(
-      (acc, p) => acc + p.valorEstimadoReal * (p.estoque || 0),
+      (acc, p) => acc + p.valorEstimadoReal,
       0
     ),
   };

@@ -146,7 +146,7 @@ export const funcionarios: Funcionario[] = [
     totalPontos: 950,
     totalMetas: 9,
     resgatesDisponiveis: 3,
-    ativo: false, // Funcionário inativo (férias/afastado)
+    ativo: false,
   },
   {
     id: "9",

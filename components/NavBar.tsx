@@ -23,6 +23,7 @@ import {
   Wrench,
   Users,
   Monitor,
+  ShoppingCart,
 } from "lucide-react";
 
 export default function NavBar() {
@@ -62,6 +63,20 @@ export default function NavBar() {
           >
             <Package className="w-4 h-4" />
             <span>Produtos</span>
+          </Link>
+          <Link
+            href="/meu-perfil"
+            className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
+          >
+            <User className="w-4 h-4" />
+            <span>Meu Perfil</span>
+          </Link>
+          <Link
+            href="/compras"
+            className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
+          >
+            <ShoppingCart className="w-4 h-4" />
+            <span>Compras</span>
           </Link>
           <Link
             href="/dashboard"
@@ -116,14 +131,6 @@ export default function NavBar() {
               })}
             </div>
           </div>
-
-          <Link
-            href="/meu-perfil"
-            className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
-          >
-            <User className="w-4 h-4" />
-            <span>Meu Perfil</span>
-          </Link>
           <Link
             href="/configuracoes"
             className="flex items-center gap-2 hover:text-gray-600 transition-colors px-2"
@@ -166,6 +173,20 @@ export default function NavBar() {
                 <span>Produtos</span>
               </Link>
               <Link
+                href="/meu-perfil"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                <User className="w-5 h-5" />
+                <span>Meu Perfil</span>
+              </Link>
+              <Link
+                href="/compras"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                <span>Compras</span>
+              </Link>
+              <Link
                 href="/dashboard"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
               >
@@ -206,14 +227,6 @@ export default function NavBar() {
                   </div>
                 )}
               </div>
-
-              <Link
-                href="/meu-perfil"
-                className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"
-              >
-                <User className="w-5 h-5" />
-                <span>Meu Perfil</span>
-              </Link>
               <Link
                 href="/configuracoes"
                 className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-md transition-colors"

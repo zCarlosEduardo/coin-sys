@@ -76,7 +76,7 @@ export default function ProdutosPage() {
   return (
     <div className="min-h-screen">
       {/* Header Section */}
-      <section className="container mx-auto px-4 py-6">
+      <section className="container mx-auto py-6">
         <div className="bg-white rounded-xl shadow-md p-6">
           {/* Título e Botões */}
           <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
@@ -183,7 +183,7 @@ export default function ProdutosPage() {
       </section>
 
       {/* Lista de Produtos */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="container mx-auto pb-8">
         {produtosFiltrados.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-12 text-center">
             <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />

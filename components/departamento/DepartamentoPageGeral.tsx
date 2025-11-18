@@ -14,12 +14,10 @@ import { EstatisticasGrid } from "@/components/Departamento/EstatisticasGrid";
 import { TabelaFuncionarios } from "@/components/Departamento/TabelaFuncionarios";
 
 export default function DepartamentosPage() {
-  const [searchTerm ] = useState("");
+  const [searchTerm] = useState("");
   const [somenteInativos] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [departamentoExpandido, setDepartamentoExpandido] = useState<
-    string | null
-  >(null);
+  const [departamentoExpandido, setDepartamentoExpandido] = useState<string | null>(null);
 
   // Calcula estatísticas gerais
   const estatisticasGerais = useMemo(() => {
@@ -91,7 +89,7 @@ export default function DepartamentosPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
 
         {/* Divisor */}
         <div className="relative m-12">
@@ -156,9 +154,11 @@ export default function DepartamentosPage() {
                         </div>
                       </div>
                       <div className="text-2xl text-gray-400">
-                        {departamentoExpandido === departamento.id
-                          ? <ChevronDown />
-                          : <ChevronRight />}
+                        {departamentoExpandido === departamento.id ? (
+                          <ChevronDown />
+                        ) : (
+                          <ChevronRight />
+                        )}
                       </div>
                     </div>
 
@@ -194,7 +194,7 @@ export default function DepartamentosPage() {
 
                 {/* Tabela de Funcionários - Expansível */}
                 {departamentoExpandido === departamento.id && (
-                  <div className="">
+                  <div>
                     <TabelaFuncionarios
                       funcionarios={funcionariosFiltrados}
                       isPending={isPending}
