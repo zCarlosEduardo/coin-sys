@@ -24,7 +24,7 @@ type Produto = {
 interface ModalProdutoProps {
   isOpen: boolean;
   onClose: () => void;
-  produto?: Produto | null; // Opcional agora
+  produto?: Produto | null;
   onSave: (produto: Produto) => void;
   categorias: string[];
 }

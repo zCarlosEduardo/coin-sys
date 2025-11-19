@@ -15,7 +15,6 @@ export function FiltrosTabela({
   searchTerm,
   setSearchTerm,
   somenteInativos,
-  setSomenteInativos,
   totalFiltrados,
   totalGeral,
 }: FiltrosTabelaProps) {
@@ -41,18 +40,6 @@ export function FiltrosTabela({
             className="w-full pl-10 pr-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-
-        <label className="flex items-center gap-3 cursor-pointer px-4 py-2 rounded-lg bg-linear-to-r from-rose-50 to-red-50 border border-red-200 hover:border-blue-300 hover:shadow-md transition-all group">
-          <input
-            type="checkbox"
-            checked={somenteInativos}
-            onChange={(e) => setSomenteInativos(e.target.checked)}
-            className="w-4 h-4 text-blue-600 rounded cursor-pointer accent-blue-600"
-          />
-          <span className="text-sm font-medium text-gray-700 group-hover:text-blue-700 transition-colors">
-            Mostrar somente inativos
-          </span>
-        </label>
       </div>
 
       <p className="mt-3 text-sm text-gray-600">

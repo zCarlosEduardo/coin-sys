@@ -3,32 +3,22 @@
 import React, { useState, useEffect } from "react";
 import { User, Coins, Trophy, Target, Gift, Sparkles } from "lucide-react";
 import RoletaSimples from "@/components/MeuPerfil/RoletaSimples";
-
-// ==================== TYPES ====================
-type Perfil = {
-  id: string;
-  nome: string;
-  cpf: string;
-  departamentoNome: string;
-  grupo: string;
-  totalCoins: number;
-  totalPontos: number;
-  totalMetas: number;
-  resgatesDisponiveis: number;
-  ativo: boolean;
-};
+import ModalResgatarProduto from "@/components/Modal/ModalResgatarProduto";
+import { Funcionario } from "@/lib/funcionarios/funcionarios";
 
 // ==================== COMPONENT: MeuPerfil ====================
 export default function MeuPerfil() {
-  const [perfil, setPerfil] = useState<Perfil | null>(null);
+  const [perfil, setPerfil] = useState<Funcionario | null>(null);
   const [mostrarRoleta, setMostrarRoleta] = useState(false);
+  const [modalResgatarOpen, setModalResgatarOpen] = useState(false);
 
   // Simulando dados do usuário (depois virá do banco)
   useEffect(() => {
-    const data = {
+    const data: Funcionario = {
       id: "1",
       nome: "João Silva",
       cpf: "123.456.789-00",
+      departamentoId: "7",
       departamentoNome: "Financeiro",
       grupo: "Analista",
       totalCoins: 300,
@@ -51,6 +41,10 @@ export default function MeuPerfil() {
     });
   };
 
+  const handleSuccessResgate = (funcionarioAtualizado: Funcionario) => {
+    setPerfil(funcionarioAtualizado);
+  };
+
   if (!perfil)
     return (
       <div className="container mx-auto p-4">
@@ -61,7 +55,7 @@ export default function MeuPerfil() {
     );
 
   return (
-    <div>
+    <div className="container mx-auto mt-6 mb-22">
       <section className="container flex flex-col bg-white justify-center p-4 rounded-lg shadow-md m-4 mx-auto">
         {/* Header do Perfil */}
         <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-300">
@@ -82,32 +76,48 @@ export default function MeuPerfil() {
             <div className="bg-white/20 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3">
               <Trophy className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <p className="text-white/90 text-xs md:text-sm mb-1">Total de Pontos</p>
-            <p className="text-2xl md:text-3xl font-bold text-white">{perfil.totalPontos}</p>
+            <p className="text-white/90 text-xs md:text-sm mb-1">
+              Total de Pontos
+            </p>
+            <p className="text-2xl md:text-3xl font-bold text-white">
+              {perfil.totalPontos}
+            </p>
           </div>
 
           <div className="bg-linear-to-br from-blue-400 to-blue-500 rounded-xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow">
             <div className="bg-white/20 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3">
               <Coins className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <p className="text-white/90 text-xs md:text-sm mb-1">Total de Coins</p>
-            <p className="text-2xl md:text-3xl font-bold text-white">{perfil.totalCoins}</p>
+            <p className="text-white/90 text-xs md:text-sm mb-1">
+              Total de Coins
+            </p>
+            <p className="text-2xl md:text-3xl font-bold text-white">
+              {perfil.totalCoins}
+            </p>
           </div>
 
           <div className="bg-linear-to-br from-green-400 to-green-600 rounded-xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow">
             <div className="bg-white/20 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3">
               <Target className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <p className="text-white/90 text-xs md:text-sm mb-1">Metas Concluídas</p>
-            <p className="text-2xl md:text-3xl font-bold text-white">{perfil.totalMetas}</p>
+            <p className="text-white/90 text-xs md:text-sm mb-1">
+              Metas Concluídas
+            </p>
+            <p className="text-2xl md:text-3xl font-bold text-white">
+              {perfil.totalMetas}
+            </p>
           </div>
 
           <div className="bg-linear-to-br from-indigo-600 to-indigo-800 rounded-xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow">
             <div className="bg-white/20 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center mb-3">
               <Gift className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <p className="text-white/90 text-xs md:text-sm mb-1">Resgates Disponíveis</p>
-            <p className="text-2xl md:text-3xl font-bold text-white">{perfil.resgatesDisponiveis}</p>
+            <p className="text-white/90 text-xs md:text-sm mb-1">
+              Resgates Disponíveis
+            </p>
+            <p className="text-2xl md:text-3xl font-bold text-white">
+              {perfil.resgatesDisponiveis}
+            </p>
           </div>
         </div>
 
@@ -145,6 +155,52 @@ export default function MeuPerfil() {
           resgatesDisponiveis={perfil.resgatesDisponiveis}
         />
       )}
+
+      <section>
+        <div className="container mx-auto mt-6">
+          <div className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex flex-col justify-between md:flex-row items-center gap-4">
+              <div>
+                <h2 className="text-xl font-bold mb-2">Produtos</h2>
+                <span className="text-gray-600">
+                  Aqui você pode ver o histórico dos seus produtos e realizar
+                  seus resgates
+                </span>
+              </div>
+              <button
+                onClick={() => setModalResgatarOpen(true)}
+                className="px-6 py-3 bg-linear-to-r from-amber-500 to-orange-600 text-white rounded-lg hover:from-amber-600 hover:to-orange-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2 font-semibold"
+                disabled={!perfil.ativo}
+                title="Resgatar produto"
+              >
+                <Gift className="w-5 h-5" />
+                Resgatar Produto
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="container mx-auto mt-6 mb-22">
+          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">
+              Dúvidas sobre o sistema ARX Coins?
+            </h2>
+            <p className="text-gray-600">
+              Entre em contato com o RH ou seu gestor para mais informações.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal de Resgatar Produto */}
+      <ModalResgatarProduto
+        isOpen={modalResgatarOpen}
+        onClose={() => setModalResgatarOpen(false)}
+        funcionario={perfil}
+        onSuccess={handleSuccessResgate}
+      />
     </div>
   );
 }

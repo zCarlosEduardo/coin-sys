@@ -2,7 +2,11 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import { Settings, Save } from "lucide-react";
-import { PremioConfig, ResumoAnterior, ConfiguracaoSistema } from "@/app/types/configuracao.types";
+import {
+  PremioConfig,
+  ResumoAnterior,
+  ConfiguracaoSistema,
+} from "@/app/types/configuracao.types";
 import { ResumoDiaAnterior } from "@/components/Config/ResumoDiaAnterior";
 import { InformacoesSistema } from "@/components/Config/InformacoesSistema";
 import { UltimaConfiguracao } from "@/components/Config/UltimaConfiguracao";
@@ -33,20 +37,21 @@ export default function ConfiguracaoDia() {
   // Cálculos memoizados
   const margemSeguranca = 10;
 
-  const { sorteiosMaximos, totalEspeciais, premios1Coin, poolTotal } = useMemo(() => {
-    const maxSorteios = funcionariosAtivos * metaMaxima;
-    const especiais = premios.reduce((sum, p) => sum + p.quantidade, 0);
-    const base = maxSorteios - especiais;
-    const comMargem = Math.ceil(base * (1 + margemSeguranca / 100));
-    const total = especiais + comMargem;
+  const { sorteiosMaximos, totalEspeciais, premios1Coin, poolTotal } =
+    useMemo(() => {
+      const maxSorteios = funcionariosAtivos * metaMaxima;
+      const especiais = premios.reduce((sum, p) => sum + p.quantidade, 0);
+      const base = maxSorteios - especiais;
+      const comMargem = Math.ceil(base * (1 + margemSeguranca / 100));
+      const total = especiais + comMargem;
 
-    return {
-      sorteiosMaximos: maxSorteios,
-      totalEspeciais: especiais,
-      premios1Coin: comMargem,
-      poolTotal: total,
-    };
-  }, [funcionariosAtivos, metaMaxima, premios]);
+      return {
+        sorteiosMaximos: maxSorteios,
+        totalEspeciais: especiais,
+        premios1Coin: comMargem,
+        poolTotal: total,
+      };
+    }, [funcionariosAtivos, metaMaxima, premios]);
 
   // Handlers
   const handleAdicionarPremio = useCallback((premio: PremioConfig) => {
@@ -120,14 +125,6 @@ export default function ConfiguracaoDia() {
         {/* Coluna 1: Lateral Esquerda */}
         <div className="lg:col-span-1 space-y-6">
           <ResumoDiaAnterior resumo={resumoAnterior} />
-          
-          <InformacoesSistema
-            funcionariosAtivos={funcionariosAtivos}
-            metaMaxima={metaMaxima}
-            multiplicadorPontos={multiplicadorPontos}
-            onMetaChange={setMetaMaxima}
-            onMultiplicadorChange={setMultiplicadorPontos}
-          />
 
           <UltimaConfiguracao data={resumoAnterior.data} />
 
@@ -144,6 +141,14 @@ export default function ConfiguracaoDia() {
             onAdd={handleAdicionarPremio}
             onRemove={handleRemoverPremio}
             onEdit={handleEditarPremio}
+          />
+          
+          <InformacoesSistema
+            funcionariosAtivos={funcionariosAtivos}
+            metaMaxima={metaMaxima}
+            multiplicadorPontos={multiplicadorPontos}
+            onMetaChange={setMetaMaxima}
+            onMultiplicadorChange={setMultiplicadorPontos}
           />
 
           <ResumoCalculos

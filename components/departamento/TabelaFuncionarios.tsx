@@ -99,9 +99,6 @@ export function TabelaFuncionarios({
                     funcionario={funcionario}
                     isPending={isPending}
                     onToggleStatus={onToggleStatus}
-                    onAdicionarCoins={onAdicionarCoins}
-                    onResgatarProduto={onResgatarProduto}
-                    onVerHistorico={onVerHistorico}
                   />
                 </td>
               </tr>
@@ -166,9 +163,6 @@ export function TabelaFuncionarios({
                 funcionario={funcionario}
                 isPending={isPending}
                 onToggleStatus={onToggleStatus}
-                onAdicionarCoins={onAdicionarCoins}
-                onResgatarProduto={onResgatarProduto}
-                onVerHistorico={onVerHistorico}
               />
             </div>
           </div>

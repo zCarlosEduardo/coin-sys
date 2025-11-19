@@ -14,8 +14,8 @@ export default function DepartamentosPage() {
   // const departamentosPermitidos = getDepartamentosPermitidos(userRole);
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <div className="">
+      <div className="container mx-auto mt-6 mb-22">
         {/* Header */}
         <header className="text-center my-12">
           <h1 className="text-4xl sm: font-bold text-gray-800 mb-4 uppercase">

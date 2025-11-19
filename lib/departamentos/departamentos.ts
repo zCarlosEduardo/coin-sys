@@ -14,12 +14,11 @@ import {
   LucideIcon,
 } from "lucide-react";
 
-// Tipos de permissões (para implementação futura)
 export type UserRole = "admin" | "gestor" | "funcionario";
 
 export interface Departamento {
   id: string;
-  slug: string; // URL amigável
+  slug: string;
   nome: string;
   icon: LucideIcon;
   cor: string;
