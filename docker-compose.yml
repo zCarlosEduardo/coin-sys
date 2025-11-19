@@ -1,0 +1,17 @@
+services:
+  coin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: coin-app
+    ports:
+      - "2500:2500"
+    environment:
+      - NODE_ENV=production
+    restart: always
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: false
