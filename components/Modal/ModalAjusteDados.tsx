@@ -69,41 +69,47 @@ export default function ModalAjusteDados({
     return true;
   };
 
-const atualizarFuncionario = (id: string, novosDados: typeof dados): Funcionario => {
+  const atualizarFuncionario = (
+    id: string,
+    novosDados: typeof dados
+  ): Funcionario => {
     return {
-        ...funcionario,
-        ...novosDados,
+      ...funcionario,
+      ...novosDados,
     };
-};
+  };
 
-const handleSubmit = () => {
+  const handleSubmit = () => {
     if (!validate()) return;
 
     setIsSaving(true);
 
     setTimeout(() => {
-        try {
-            const funcionarioAtualizado = atualizarFuncionario(funcionario.id, dados);
+      try {
+        const funcionarioAtualizado = atualizarFuncionario(
+          funcionario.id,
+          dados
+        );
 
-            if (!funcionarioAtualizado) {
-                throw new Error("Erro ao atualizar dados");
-            }
-
-            onSuccess(funcionarioAtualizado);
-            setShowSuccess(true);
-            setIsSaving(false);
-
-            setTimeout(() => {
-                setShowSuccess(false);
-                setError("");
-                onClose();
-            }, 1500);
-        } catch (err: any) {
-            setError(err.message || "Erro ao atualizar dados");
-            setIsSaving(false);
+        if (!funcionarioAtualizado) {
+          throw new Error("Erro ao atualizar dados");
         }
+
+        onSuccess(funcionarioAtualizado);
+        setShowSuccess(true);
+        setIsSaving(false);
+
+        setTimeout(() => {
+          setShowSuccess(false);
+          setError("");
+          onClose();
+        }, 1500);
+      } catch (err: any) {
+        setError(err.message || "Erro ao atualizar dados");
+        setIsSaving(false);
+      }
     }, 800);
-};
+  };
 
   const handleClose = () => {
     if (!isSaving) {
@@ -118,6 +124,14 @@ const handleSubmit = () => {
       onClose();
     }
   };
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isSaving) handleClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, isSaving]);
 
   const handleChange = (campo: keyof typeof dados, valor: number) => {
     setDados((prev) => ({ ...prev, [campo]: Math.max(0, valor) }));
@@ -144,7 +158,9 @@ const handleSubmit = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-bold">Ajuste de Dados</h2>
-                <p className="text-purple-100 text-sm max-w-xs truncate">{funcionario.nome}</p>
+                <p className="text-purple-100 text-sm max-w-xs truncate">
+                  {funcionario.nome}
+                </p>
               </div>
             </div>
             <button
@@ -162,8 +178,12 @@ const handleSubmit = () => {
           <div className="bg-green-50 border-l-4 border-green-500 p-4 mx-6 mt-6 rounded-lg flex items-center gap-3">
             <CheckCircle className="w-6 h-6 text-green-500 shrink-0" />
             <div>
-              <p className="font-semibold text-green-800">Dados atualizados com sucesso!</p>
-              <p className="text-sm text-green-600">As alterações foram salvas</p>
+              <p className="font-semibold text-green-800">
+                Dados atualizados com sucesso!
+              </p>
+              <p className="text-sm text-green-600">
+                As alterações foram salvas
+              </p>
             </div>
           </div>
         )}
@@ -173,7 +193,9 @@ const handleSubmit = () => {
           {/* Info do Funcionário */}
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <p className="text-sm text-gray-600">Funcionário</p>
-            <p className="font-semibold text-gray-900 text-lg max-w-xs truncate">{funcionario.nome}</p>
+            <p className="font-semibold text-gray-900 text-lg max-w-xs truncate">
+              {funcionario.nome}
+            </p>
             <p className="text-xs text-gray-500 mt-1">CPF: {funcionario.cpf}</p>
           </div>
 
@@ -187,7 +209,9 @@ const handleSubmit = () => {
               <input
                 type="number"
                 value={dados.totalMetas}
-                onChange={(e) => handleChange("totalMetas", Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("totalMetas", Number(e.target.value))
+                }
                 className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-semibold text-lg"
                 disabled={isSaving || showSuccess}
                 min="0"
@@ -205,7 +229,9 @@ const handleSubmit = () => {
               <input
                 type="number"
                 value={dados.totalCoins}
-                onChange={(e) => handleChange("totalCoins", Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("totalCoins", Number(e.target.value))
+                }
                 className="w-full px-4 py-3 border-2 border-yellow-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all font-semibold text-lg"
                 disabled={isSaving || showSuccess}
                 min="0"
@@ -223,7 +249,9 @@ const handleSubmit = () => {
               <input
                 type="number"
                 value={dados.totalPontos}
-                onChange={(e) => handleChange("totalPontos", Number(e.target.value))}
+                onChange={(e) =>
+                  handleChange("totalPontos", Number(e.target.value))
+                }
                 className="w-full px-4 py-3 border-2 border-orange-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all font-semibold text-lg"
                 disabled={isSaving || showSuccess}
                 min="0"
@@ -273,8 +301,8 @@ const handleSubmit = () => {
                   ⚠️ Atenção
                 </h4>
                 <p className="text-sm text-amber-600">
-                  Ajustes manuais devem ser feitos com cuidado. Essas alterações afetarão
-                  diretamente o saldo e os resgates do funcionário.
+                  Ajustes manuais devem ser feitos com cuidado. Essas alterações
+                  afetarão diretamente o saldo e os resgates do funcionário.
                 </p>
               </div>
             </div>

@@ -21,7 +21,14 @@ export default function ModalCriarCategoria({
   const [error, setError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isSaving) handleClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, isSaving]);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -62,7 +69,6 @@ export default function ModalCriarCategoria({
 
     setIsSaving(true);
 
-    
     setTimeout(() => {
       onSave(nomeCategoria.trim());
       setShowSuccess(true);
@@ -104,7 +110,9 @@ export default function ModalCriarCategoria({
                 <Tag className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-black">Nova Categoria</h2>
+                <h2 className="text-2xl font-bold text-black">
+                  Nova Categoria
+                </h2>
                 <p className="text-gray-800 text-sm">
                   Crie uma nova categoria para produtos
                 </p>

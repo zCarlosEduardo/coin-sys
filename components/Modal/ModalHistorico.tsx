@@ -24,6 +24,14 @@ export default function ModalHistorico({
 }: ModalHistoricoProps) {
   const [historico, setHistorico] = useState<Historico[]>([]);
   const [filtroTipo, setFiltroTipo] = useState<string>("todos");
+  
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {

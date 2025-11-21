@@ -161,10 +161,12 @@ export default function MeuPerfil() {
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="flex flex-col justify-between md:flex-row items-center gap-4">
               <div>
-                <h2 className="text-xl font-bold mb-2">Produtos</h2>
+                <h2 className="text-xl font-bold mb-2">
+                  Meus Prêmios e Resgates
+                </h2>
                 <span className="text-gray-600">
-                  Aqui você pode ver o histórico dos seus produtos e realizar
-                  seus resgates
+                  Acompanhe os produtos que você já conquistou e resgate novas
+                  recompensas para celebrar suas conquistas!
                 </span>
               </div>
               <button
@@ -176,6 +178,58 @@ export default function MeuPerfil() {
                 <Gift className="w-5 h-5" />
                 Resgatar Produto
               </button>
+            </div>
+            {/* Mock de produtos resgatados */}
+            <div className="mt-8">
+              <h3 className="font-semibold text-lg mb-4">
+                Histórico de Produtos Resgatados
+              </h3>
+              <ul className="divide-y divide-gray-200">
+                {[
+                  {
+                    id: 1,
+                    produtoNome: "Fone de Ouvido Bluetooth",
+                    dataSolicitacao: "2024-05-10",
+                    status: "Solicitado",
+                  },
+                  {
+                    id: 2,
+                    produtoNome: "Vale Presente R$50",
+                    dataSolicitacao: "2024-04-22",
+                    status: "Entregue",
+                  },
+                  {
+                    id: 3,
+                    produtoNome: "Caneca Personalizada",
+                    dataSolicitacao: "2024-03-15",
+                    status: "Entregue",
+                  },
+                ].map((produto) => (
+                  <li
+                    key={produto.id}
+                    className="py-3 flex justify-between items-center"
+                  >
+                    <div>
+                      <span className="">#{produto.id}</span>
+                      <span className="font-medium mx-1.5">{produto.produtoNome}</span>
+                      <span className="ml-12 text-gray-500 text-sm">
+                        ({produto.dataSolicitacao})
+                      </span>
+                    </div>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        produto.status === "Entregue"
+                          ? "bg-green-100 text-green-700"
+                          : produto.status === "Solicitado"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {produto.status}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

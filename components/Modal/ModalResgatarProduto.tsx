@@ -34,6 +34,15 @@ export default function ModalResgatarProduto({
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isSaving) handleClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, isSaving]);
+
 
   useEffect(() => {
     if (isOpen) {
@@ -197,18 +206,8 @@ export default function ModalResgatarProduto({
         )}
 
         {/* Form Content */}
-        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <div className="p-6 space-y-6 h-[65vh] overflow-y-auto">
           {/* Saldo */}
-          <div className="grid grid-cols-1 gap-3">
-            <div className="bg-linear-to-br from-yellow-50 to-amber-50 rounded-lg p-4 border-2 border-yellow-200">
-              <p className="text-sm text-gray-600 mb-1">Saldo Disponível</p>
-              <p className="text-2xl font-bold text-yellow-600">
-                {funcionario.totalCoins}
-              </p>
-              <p className="text-xs text-gray-500">coins</p>
-            </div>
-          </div>
-
           {semResgates && (
             <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
               <div className="flex items-start gap-2">
@@ -247,6 +246,7 @@ export default function ModalResgatarProduto({
 
           {/* Lista de Produtos */}
           {!semResgates && (
+            
             <div>
               <p className="text-sm font-semibold text-gray-700 mb-3">
                 Produtos Disponíveis ({produtosFiltrados.length})
@@ -306,7 +306,7 @@ export default function ModalResgatarProduto({
 
               {/* Preview */}
               <div
-                className={`rounded-lg p-4 border-2 ${
+                className={`rounded-lg py-2  px-4 border-2 ${
                   saldoInsuficiente
                     ? "bg-red-50 border-red-200"
                     : "bg-green-50 border-green-200"

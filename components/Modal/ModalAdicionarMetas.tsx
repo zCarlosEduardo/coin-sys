@@ -48,37 +48,46 @@ export default function ModalAdicionarMetas({
     return true;
   };
 
-const handleSubmit = () => {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !isSaving) handleClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, isSaving]);
+
+  const handleSubmit = () => {
     if (!validate()) return;
 
     setIsSaving(true);
 
     // Simula sucesso sem chamar adicionarMetas
     setTimeout(() => {
-        try {
-            // Atualiza os dados localmente (mock)
-            const funcionarioAtualizado = {
-                ...funcionario,
-                totalMetas: funcionario.totalMetas + quantidadeMetas,
-                resgatesDisponiveis: funcionario.resgatesDisponiveis + quantidadeMetas,
-            };
+      try {
+        // Atualiza os dados localmente (mock)
+        const funcionarioAtualizado = {
+          ...funcionario,
+          totalMetas: funcionario.totalMetas + quantidadeMetas,
+          resgatesDisponiveis:
+            funcionario.resgatesDisponiveis + quantidadeMetas,
+        };
 
-            onSuccess(funcionarioAtualizado);
-            setShowSuccess(true);
-            setIsSaving(false);
+        onSuccess(funcionarioAtualizado);
+        setShowSuccess(true);
+        setIsSaving(false);
 
-            setTimeout(() => {
-                setShowSuccess(false);
-                setQuantidadeMetas(1);
-                setError("");
-                onClose();
-            }, 1500);
-        } catch (err: any) {
-            setError("Erro ao adicionar metas");
-            setIsSaving(false);
-        }
+        setTimeout(() => {
+          setShowSuccess(false);
+          setQuantidadeMetas(1);
+          setError("");
+          onClose();
+        }, 1500);
+      } catch (err: any) {
+        setError("Erro ao adicionar metas");
+        setIsSaving(false);
+      }
     }, 800);
-};
+  };
 
   const handleClose = () => {
     if (!isSaving) {
@@ -106,7 +115,9 @@ const handleSubmit = () => {
               </div>
               <div>
                 <h2 className="text-2xl font-bold">Adicionar Metas</h2>
-                <p className="text-blue-100 text-sm max-w-xs truncate">{funcionario.nome}</p>
+                <p className="text-blue-100 text-sm max-w-xs truncate">
+                  {funcionario.nome}
+                </p>
               </div>
             </div>
             <button
@@ -124,7 +135,9 @@ const handleSubmit = () => {
           <div className="bg-green-50 border-l-4 border-green-500 p-4 mx-6 mt-6 rounded-lg flex items-center gap-3">
             <CheckCircle className="w-6 h-6 text-green-500 shrink-0" />
             <div>
-              <p className="font-semibold text-green-800">Metas adicionadas com sucesso!</p>
+              <p className="font-semibold text-green-800">
+                Metas adicionadas com sucesso!
+              </p>
               <p className="text-sm text-green-600">
                 +{quantidadeMetas} meta(s) e +{quantidadeMetas} resgate(s)
               </p>
@@ -138,11 +151,15 @@ const handleSubmit = () => {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-blue-50 rounded-lg p-3 text-center border-2 border-blue-200">
               <p className="text-xs text-gray-600 mb-1">Metas Atuais</p>
-              <p className="text-lg font-bold text-blue-600">{funcionario.totalMetas}</p>
+              <p className="text-lg font-bold text-blue-600">
+                {funcionario.totalMetas}
+              </p>
             </div>
             <div className="bg-yellow-50 rounded-lg p-3 text-center border-2 border-yellow-200">
               <p className="text-xs text-gray-600 mb-1">Coins</p>
-              <p className="text-lg font-bold text-yellow-600">{funcionario.totalCoins}</p>
+              <p className="text-lg font-bold text-yellow-600">
+                {funcionario.totalCoins}
+              </p>
             </div>
             <div className="bg-green-50 rounded-lg p-3 text-center border-2 border-green-200">
               <p className="text-xs text-gray-600 mb-1">Resgates</p>
@@ -160,7 +177,9 @@ const handleSubmit = () => {
             </label>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => setQuantidadeMetas((prev) => Math.max(1, prev - 1))}
+                onClick={() =>
+                  setQuantidadeMetas((prev) => Math.max(1, prev - 1))
+                }
                 disabled={isSaving || showSuccess}
                 className="w-12 h-12 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-lg transition-colors disabled:opacity-50"
               >
@@ -181,7 +200,9 @@ const handleSubmit = () => {
                 max="100"
               />
               <button
-                onClick={() => setQuantidadeMetas((prev) => Math.min(100, prev + 1))}
+                onClick={() =>
+                  setQuantidadeMetas((prev) => Math.min(100, prev + 1))
+                }
                 disabled={isSaving || showSuccess}
                 className="w-12 h-12 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-lg transition-colors disabled:opacity-50"
               >
@@ -199,25 +220,34 @@ const handleSubmit = () => {
           <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border-2 border-blue-200">
             <div className="flex items-center gap-2 mb-3">
               <TrendingUp className="w-5 h-5 text-blue-600" />
-              <h4 className="font-semibold text-blue-700 text-sm">Após Confirmação:</h4>
+              <h4 className="font-semibold text-blue-700 text-sm">
+                Após Confirmação:
+              </h4>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <p className="text-xs text-gray-600">Total de Metas</p>
-                <p className="text-2xl font-bold text-blue-600">{novoTotalMetas}</p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {novoTotalMetas}
+                </p>
               </div>
               <div>
                 <p className="text-xs text-gray-600">Resgates Disponíveis</p>
-                <p className="text-2xl font-bold text-green-600">{novosResgates}</p>
+                <p className="text-2xl font-bold text-green-600">
+                  {novosResgates}
+                </p>
               </div>
             </div>
           </div>
 
           {/* Info */}
           <div className="bg-amber-50 rounded-xl p-4 border-2 border-amber-200">
-            <h4 className="font-semibold text-amber-700 mb-2 text-sm">⚠️ Importante</h4>
+            <h4 className="font-semibold text-amber-700 mb-2 text-sm">
+              ⚠️ Importante
+            </h4>
             <p className="text-sm text-amber-600">
-              Cada meta adicionada gera automaticamente 1 resgate disponível para o funcionário.
+              Cada meta adicionada gera automaticamente 1 resgate disponível
+              para o funcionário.
             </p>
           </div>
 
