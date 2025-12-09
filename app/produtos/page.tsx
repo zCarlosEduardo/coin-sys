@@ -139,6 +139,30 @@ export default function ProdutosPage() {
               <Filter size={20} />
               <span className="font-medium">Filtros</span>
             </button>
+            {/* Botão de Alternar Inativos */}
+            <button
+              onClick={() =>
+              setCategoriaFiltro(
+                categoriaFiltro === "inativos" ? "todas" : "inativos"
+              )
+              }
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-lg ${
+              categoriaFiltro === "inativos"
+                ? "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                : "bg-red-500 text-white hover:bg-red-400"
+              }`}
+            >
+              {categoriaFiltro === "inativos" ? (
+              <Package size={20} className="-rotate-180 transition-transform duration-1000" />
+              ) : (
+              <Package size={20} className=" transition-transform duration-1000" />
+              )}
+              <span className="font-medium">
+              {categoriaFiltro === "inativos"
+                ? "Ocultar Inativos"
+                : "Mostrar Inativos"}
+              </span>
+            </button>
           </div>
 
           {/* Painel de Filtros Expansível */}
