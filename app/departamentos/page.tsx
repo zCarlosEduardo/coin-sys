@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { departamentos } from "@/lib/departamentos/departamentos";
-import { ArrowRight } from "lucide-react";
 import DepartamentoPageGeral from "@/components/Departamento/DepartamentoPageGeral";
 
 export const metadata = {
