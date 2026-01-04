@@ -27,6 +27,7 @@ export default function MeuPerfil() {
       resgatesDisponiveis: 5,
       ativo: true,
     };
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPerfil(data);
   }, []);
 

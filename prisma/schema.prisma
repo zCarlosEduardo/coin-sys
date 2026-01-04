@@ -1,0 +1,308 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// ==================== ENUMS ====================
+
+enum UserRole {
+  admin
+  gestor
+  funcionario
+}
+
+enum TipoTransacao {
+  meta_adicionada
+  resgate_produto
+  ajuste_manual
+  bonus_adicionado
+  penalidade
+  coins_resgatados // quando gira a roleta
+}
+
+enum StatusPedido {
+  solicitado
+  entregue
+}
+
+// ==================== DEPARTAMENTOS ====================
+
+model Departamento {
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  nome     String
+  icon     String  // nome do ícone Lucide
+  cor      String  // hex color
+  corIcone String  // hex color
+  ativo    Boolean @default(true)
+  
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  // Relacionamentos
+  funcionarios Funcionario[]
+  gestor       Gestor?
+
+  @@index([slug])
+}
+
+// ==================== FUNCIONÁRIOS ====================
+
+model Funcionario {
+  id    String  @id @default(cuid())
+  nome  String
+  cpf   String  @unique
+  email String? @unique
+  
+  // IDs vindos do Django
+  djangoUserId String? @unique // ID do usuário no Django
+  
+  // Departamento
+  departamentoId String
+  departamento   Departamento @relation(fields: [departamentoId], references: [id])
+  
+  // Acumuladores (nunca diminuem, exceto pontos)
+  totalMetas  Int @default(0) // soma de todas as metas batidas
+  totalCoins  Int @default(0) // soma de todos os coins ganhos
+  totalPontos Int @default(0) // diminui quando resgata produto
+  
+  ativo    Boolean  @default(true)
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  // Relacionamentos
+  resgates  Resgate[]  // resgates pendentes do dia
+  historico Historico[]
+  pedidos   Pedido[]
+
+  @@index([cpf])
+  @@index([departamentoId])
+  @@index([djangoUserId])
+}
+
+// ==================== GESTORES ====================
+
+model Gestor {
+  id    String @id @default(cuid())
+  nome  String
+  cpf   String @unique
+  email String @unique
+  
+  // ID vindo do Django
+  djangoUserId String @unique
+  
+  // Gestor gerencia 1 departamento apenas
+  departamentoId String       @unique
+  departamento   Departamento @relation(fields: [departamentoId], references: [id])
+  
+  ativo    Boolean  @default(true)
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@index([cpf])
+  @@index([departamentoId])
+}
+
+// ==================== RESGATES DISPONÍVEIS (TEMPORÁRIOS) ====================
+
+model Resgate {
+  id String @id @default(cuid())
+  
+  funcionarioId String
+  funcionario   Funcionario @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  
+  quantidade Int @default(1) // número de tentativas na roleta disponíveis
+  
+  // Data de validade (fim do dia)
+  dataExpiracao DateTime
+  resgatado     Boolean  @default(false)
+  
+  criadoEm DateTime @default(now())
+
+  @@index([funcionarioId, resgatado])
+  @@index([dataExpiracao])
+}
+
+// ==================== CONFIGURAÇÃO DIÁRIA ====================
+
+model ConfiguracaoDia {
+  id   String   @id @default(cuid())
+  data DateTime @unique @default(now()) // dia da configuração
+  
+  // Configurações do RH
+  funcionariosAtivos Int @default(0)
+  metaMaximaPorFuncionario Int @default(3)
+  multiplicadorPontos Int @default(3) // 1 coin = X pontos
+  margemSeguranca Int @default(10) // percentual
+  
+  // Janela de troca (global)
+  janelaAtiva Boolean @default(false)
+  
+  // Estatísticas do dia anterior
+  sorteiosRealizados Int @default(0)
+  coinsDistribuidos Int @default(0)
+  funcionariosNaoResgataram Int @default(0)
+  
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  configuradoPor String? // CPF ou nome do admin
+  
+  // Relacionamentos
+  coinsEspeciais CoinEspecial[]
+  poolDia        PoolDia?
+
+  @@index([data])
+}
+
+// ==================== COINS ESPECIAIS ====================
+
+model CoinEspecial {
+  id String @id @default(cuid())
+  
+  configuracaoDiaId String
+  configuracaoDia   ConfiguracaoDia @relation(fields: [configuracaoDiaId], references: [id], onDelete: Cascade)
+  
+  valor      Int // 5, 3, 2
+  quantidade Int // quantos desse tipo
+  
+  criadoEm DateTime @default(now())
+
+  @@index([configuracaoDiaId])
+}
+
+// ==================== POOL DO DIA (EMBARALHADO) ====================
+
+model PoolDia {
+  id String @id @default(cuid())
+  
+  configuracaoDiaId String          @unique
+  configuracaoDia   ConfiguracaoDia @relation(fields: [configuracaoDiaId], references: [id], onDelete: Cascade)
+  
+  // Pool embaralhado serializado como JSON
+  // Ex: [1,1,5,1,3,1,1,2,1,1,...]
+  poolEmbaralhado Json
+  
+  // Controle de consumo
+  indiceAtual     Int @default(0) // próximo prêmio a ser sorteado
+  totalPremios    Int // tamanho do array
+  premiosUsados   Int @default(0)
+  
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+// ==================== HISTÓRICO DE TRANSAÇÕES ====================
+
+model Historico {
+  id String @id @default(cuid())
+  
+  funcionarioId   String
+  funcionario     Funcionario @relation(fields: [funcionarioId], references: [id], onDelete: Cascade)
+  funcionarioNome String // desnormalizado para performance
+  
+  tipo      TipoTransacao
+  descricao String
+  
+  // Estados antes/depois
+  coinsAntes  Int
+  coinsDepois Int
+  pontosAntes Int
+  pontosDepois Int
+  metasAntes  Int?
+  metasDepois Int?
+  
+  // Se for resgate de produto
+  produtoId   String?
+  produtoNome String?
+  
+  // Valor da transação
+  valorTransacao Int // pode ser coins, pontos ou metas dependendo do tipo
+  
+  observacao String?
+  criadoPor  String? // CPF ou nome do admin/sistema
+  
+  criadoEm DateTime @default(now())
+
+  @@index([funcionarioId])
+  @@index([tipo])
+  @@index([criadoEm])
+}
+
+// ==================== PRODUTOS ====================
+
+model Produto {
+  id String @id @default(cuid())
+  
+  nome              String
+  descricao         String
+  valorPontos       Int // quantos pontos custa
+  valorEstimadoReal Decimal @db.Decimal(10, 2) // valor em R$
+  
+  imagem    String? // URL da imagem
+  categoria String?
+  
+  ativo Boolean @default(true)
+  
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  
+  // Relacionamentos
+  pedidos Pedido[]
+
+  @@index([ativo])
+  @@index([categoria])
+}
+
+// ==================== PEDIDOS ====================
+
+model Pedido {
+  id String @id @default(cuid())
+  
+  funcionarioId String
+  funcionario   Funcionario @relation(fields: [funcionarioId], references: [id])
+  
+  produtoId String
+  produto   Produto @relation(fields: [produtoId], references: [id])
+  
+  // Dados desnormalizados (snapshot do momento)
+  funcionarioNome String
+  funcionarioCpf  String
+  produtoNome     String
+  produtoCategoria String?
+  departamentoNome String
+  valorPontos     Int // pontos gastos
+  
+  status StatusPedido @default(solicitado)
+  
+  dataSolicitacao DateTime  @default(now())
+  dataEntrega     DateTime? // quando marcar como entregue
+  entregoPor      String? // CPF ou nome do admin
+  
+  observacao String?
+
+  @@index([funcionarioId])
+  @@index([produtoId])
+  @@index([status])
+  @@index([dataSolicitacao])
+}
+
+// ==================== CONFIGURAÇÕES GLOBAIS ====================
+
+model ConfiguracaoGlobal {
+  id String @id @default(cuid())
+  
+  chave String @unique
+  valor String
+  
+  descricao String?
+  
+  atualizadoEm DateTime @updatedAt
+  atualizadoPor String?
+
+  @@index([chave])
+}
