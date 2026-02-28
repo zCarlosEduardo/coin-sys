@@ -1,7 +1,9 @@
+'use client';
+
 import Link from "next/link";
 import { departamentos } from "@/lib/departamentos/departamentos";
 import { ArrowRight } from "lucide-react";
-import DepartamentoPageGeral from "@/components/Departamento/DepartamentoPageGeral";
+import DepartamentoPageGeral from "@/components/departamentos/DepartamentoPageGeral";
 
 export const metadata = {
   title: "Departamentos - Coin System",

@@ -10,8 +10,8 @@ import {
 } from "@/lib/funcionarios/funcionarios";
 
 // Componentes separados
-import { EstatisticasGrid } from "@/components/Departamento/EstatisticasGrid";
-import { TabelaFuncionarios } from "@/components/Departamento/TabelaFuncionarios";
+import { EstatisticasGrid } from "@/components/departamentos/EstatisticasGrid";
+import { TabelaFuncionarios } from "@/components/departamentos/TabelaFuncionarios";
 
 export default function DepartamentosPage() {
   const [searchTerm] = useState("");

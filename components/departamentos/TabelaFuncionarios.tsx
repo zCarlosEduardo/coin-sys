@@ -1,5 +1,5 @@
 import { Funcionario } from "@/lib/funcionarios/funcionarios";
-import { FuncionarioActions } from "@/components/Departamento/FuncionarioActions";
+import { FuncionarioActions } from "@/components/departamentos/FuncionarioActions";
 
 interface TabelaFuncionariosProps {
   funcionarios: Funcionario[];

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
@@ -10,10 +10,10 @@ import {
 } from "@/lib/funcionarios/funcionarios";
 
 // Componentes separados
-import { DepartamentoHeader } from "@/components/Departamento/DepartamentoHeader";
-import { EstatisticasGrid } from "@/components/Departamento/EstatisticasGrid";
-import { FiltrosTabela } from "@/components/Departamento/FiltrosTabela";
-import { TabelaFuncionarios } from "@/components/Departamento/TabelaFuncionarios";
+import { DepartamentoHeader } from "@/components/departamentos/DepartamentoHeader";
+import { EstatisticasGrid } from "@/components/departamentos/EstatisticasGrid";
+import { FiltrosTabela } from "@/components/departamentos/FiltrosTabela";
+import { TabelaFuncionarios } from "@/components/departamentos/TabelaFuncionarios";
 
 interface Props {
   slug: string;
