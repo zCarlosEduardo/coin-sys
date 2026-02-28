@@ -30,7 +30,7 @@ export interface Departamento {
 
 export const departamentos: Departamento[] = [
 
-  {
+  {       
     id: "2",
     slug: "abertura",
     nome: "Abertura",

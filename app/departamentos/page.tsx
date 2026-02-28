@@ -1,12 +1,5 @@
-import DepartamentosClient from "./DepartamentosClient";
-
-export const metadata = {
-  title: "Departamentos - Coin System",
-  description: "Visualize todos os departamentos da empresa",
-};
+import DepartamentoPageGeral from "@/components/departamentos/DepartamentoPageGeral";
 
 export default function DepartamentosPage() {
-  return <DepartamentosClient />;
+  return <DepartamentoPageGeral />;
 }
-
-export const dynamic = "force-static";
