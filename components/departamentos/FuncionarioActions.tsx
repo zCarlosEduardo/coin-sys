@@ -1,3 +1,5 @@
+"use client";
+
 import { Eye, EyeOff, TrendingUp, Gift, History, Edit } from "lucide-react";
 import { useState } from "react";
 import { Funcionario } from "@/lib/funcionarios/funcionarios";

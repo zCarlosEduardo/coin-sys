@@ -1,15 +1,11 @@
-"use server";
-
 import DepartamentoPageClient from "@/components/departamentos/DepartamentoPageClient";
-
 
 interface Props {
   params: { slug: string };
 }
 
-export default function DepartamentoPage({ params }: Props) {
+export default async function DepartamentoPage({ params }: Props) {
   const { slug } = params;
-
   return <DepartamentoPageClient slug={slug} />;
 }
 
